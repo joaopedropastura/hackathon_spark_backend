@@ -7,6 +7,7 @@ export interface Location {
   state: string;
   street: string;
   country: string;
+  isActive: boolean;
 
   inventory?: Inventory[];
 }
