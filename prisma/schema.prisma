@@ -8,27 +8,27 @@ datasource db {
 }
 
 model Location {
-  id        Int         @id @default(autoincrement())
-  city      String
-  unity     String
-  state     String
-  street    String
-  country   String
-  inventory Inventory[]
+    id        Int         @id @default(autoincrement())
+    city      String
+    unity     String      @unique()
+    state     String
+    street    String
+    country   String
+    inventory Inventory[]
 }
 
 model Material {
-  id        Int         @id @default(autoincrement())
-  name      String
-  inventory Inventory[]
+    id        Int         @id @default(autoincrement())
+    name      String
+    inventory Inventory[]
 }
 
 model Inventory {
-  id          Int       @id @default(autoincrement())
-  quantity    Int
-  locationId  Int
-  materialId  Int
+    id         Int   @id @default(autoincrement())
+    quantity   Int
+    locationId Int
+    materialId Int
 
-  location    Location  @relation(fields: [locationId], references: [id])
-  material    Material  @relation(fields: [materialId], references: [id])
+    location Location @relation(fields: [locationId], references: [id])
+    material Material @relation(fields: [materialId], references: [id])
 }
