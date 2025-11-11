@@ -6,6 +6,7 @@ export interface Inventory {
   quantity: number;
   locationId: number;
   materialId: number;
+  isActive: boolean;
 
   location?: Location;
   material?: Material;

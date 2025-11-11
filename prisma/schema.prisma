@@ -14,18 +14,21 @@ model Location {
     state     String
     street    String
     country   String
+    isActive Boolean @default(true)
     inventory Inventory[]
 }
 
 model Material {
     id        Int         @id @default(autoincrement())
     name      String
+    isActive Boolean @default(true)
     inventory Inventory[]
 }
 
 model Inventory {
     id         Int   @id @default(autoincrement())
     quantity   Int
+    isActive Boolean @default(true)
     locationId Int
     materialId Int
 
