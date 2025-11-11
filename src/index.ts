@@ -1,13 +1,14 @@
-import express, { Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
+import express from 'express';
 
-const prisma = new PrismaClient();
+import locationRoutes from './routes/location.routes';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-app.get('/', (req: Request, res: Response) => {
-  res.json({ message: 'API está funcionando!' });
+app.use('/locations', locationRoutes);
+
+app.listen(PORT, () => {
+  console.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
 });
