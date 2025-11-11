@@ -136,14 +136,14 @@ export const deleteLocation = async (req: Request, res: Response) => {
 
     const location = await prisma.location.findUnique({
       where: { id: Number(id) },
-      include: { inventories: true },
+      include: { inventory: true },
     });
 
     if (!location || location.isActive === false) {
       return res.status(404).json({ error: "Location not found." });
     }
 
-    const hasPositiveInventory = location.inventories.some(
+    const hasPositiveInventory = location.inventory.some(
       (inv: any) => inv.quantity > 0
     );
     if (hasPositiveInventory) {
@@ -170,7 +170,7 @@ export const getById = async (req: Request, res: Response) => {
 
     const location = await prisma.location.findUnique({
       where: { id: Number(id) },
-      include: { inventories: true },
+      include: { inventory: true },
     });
 
     if (!location || location.isActive === false) {
