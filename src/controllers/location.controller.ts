@@ -5,34 +5,40 @@ const prisma = new PrismaClient();
 
 export const createLocation = async (req: Request, res: Response) => {
   try {
-    const { city, unity, state, street, country } = req.body;
+    const { city, state, street, country } = req.body;
 
-    if (!city || !unity || !state || !street || !country) {
+    if (!city || !state || !street || !country) {
       return res.status(400).json({ error: "All fields are required." });
     }
 
     const existing = await prisma.location.findFirst({
       where: {
         city,
-        unity,
       },
     });
+
+    let newLocation;
 
     if (existing) {
-      return res
-        .status(409)
-        .json({ error: "A location with this city and unit already exists." });
+      newLocation = await prisma.location.create({
+        data: {
+          city,
+          state,
+          street,
+          country,
+          unity: existing.unity + 1,
+        },
+      });
+    } else {
+      newLocation = await prisma.location.create({
+        data: {
+          city,
+          state,
+          street,
+          country,
+        },
+      });
     }
-
-    const newLocation = await prisma.location.create({
-      data: {
-        city,
-        unity,
-        state,
-        street,
-        country,
-      },
-    });
 
     res.status(201).json(newLocation);
   } catch (error) {
