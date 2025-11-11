@@ -1,5 +1,4 @@
 import express from 'express';
-
 import locationRoutes from './routes/location.routes';
 import swaggerUi from 'swagger-ui-express';
 import swaggerSpec from './lib/swagger/swagger';

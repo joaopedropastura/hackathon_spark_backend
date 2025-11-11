@@ -1,4 +1,3 @@
-// src/routes/location.routes.ts
 import { Router } from "express";
 import {
   createLocation,
@@ -7,6 +6,7 @@ import {
   updateLocation,
   deleteLocation,
 } from "../controllers/location.controller";
+import 'dotenv/config';
 
 const locationRoutes = Router();
 

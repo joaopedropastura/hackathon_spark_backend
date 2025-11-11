@@ -43,42 +43,12 @@ export const createLocation = async (req: Request, res: Response) => {
 
 export const getAllLocations = async (req: Request, res: Response) => {
   try {
-    const { city, unity, state, street } = req.query;
+    const allLocations = await prisma.location.findMany();
 
-    const filters: any = {};
-
-    if (city) filters.city = String(city);
-    if (unity) filters.unity = String(unity);
-    if (state) filters.state = String(state);
-    if (street) {
-      filters.street = {
-        contains: String(street),
-        mode: "insensitive",
-      };
-    }
-
-    const allLocations = await prisma.location.findMany({
-      where: filters,
-      orderBy: [{ city: "asc" }, { unity: "asc" }],
-      select: {
-        city: true,
-        unity: true,
-        state: true,
-        street: true,
-      },
-    });
-
-    const response = allLocations.map((location: any) => ({
-      city: location.city,
-      unity: location.unity,
-      state: location.state,
-      street: location.street,
-    }));
-
-    res.status(200).json(response);
+    res.status(200).json(allLocations);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Error while fetching locations." });
+    console.error(error); 
+    res.status(500).json({ error: 'Erro ao buscar localizações' });
   }
 };
 
