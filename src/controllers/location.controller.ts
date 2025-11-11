@@ -26,7 +26,7 @@ export const createLocation = async (req: Request, res: Response) => {
           state,
           street,
           country,
-          unity: existing.unity + 1,
+          unity: (Number(existing.unity) + 1).toString(),
         },
       });
     } else {
@@ -36,6 +36,7 @@ export const createLocation = async (req: Request, res: Response) => {
           state,
           street,
           country,
+          unity: "1",
         },
       });
     }
